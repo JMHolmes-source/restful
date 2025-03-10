@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestfulApplication {
 	@RequestMapping("/")
 	String home() {
-		return "Hello World!";
+		return "Welcome to home";
+	}
+
+	@RequestMapping("/test")
+	String test() {
+		return "Welcome to the test page";
 	}
 
 	public static void main(String[] args) {
