@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  build y deploy:
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout source
@@ -29,5 +29,21 @@ jobs:
         run: |
           cd target
           scp -o StrictHostKeyChecking=no -i "~/.ssh/id_rsa" restful-0.0.1-SNAPSHOT.jar ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com:~/
+    env:
+      SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+    
+  run instance:
+    runs-on: [ubuntu-latest]
+      steps:
+      - name: Setup Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+      - name: kill and run
+        run: |
+          ssh -o StrictHostKeyChecking=no -i "~/.ssh/id_rsa" ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com
+          pkill -f "java"
+          java -jar restful-0.0.1-SNAPSHOT.jar
     env:
       SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
