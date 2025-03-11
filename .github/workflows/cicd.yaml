@@ -25,10 +25,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H remote.server.com >> ~/.ssh/known_hosts
       - name: Deploy
         run: |
           cd target
-          scp -o StrictHostKeyChecking=no restful-0.0.1-SNAPSHOT.jar ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com:~/
+          scp -o StrictHostKeyChecking=no -i "~/.ssh/id_rsa" restful-0.0.1-SNAPSHOT.jar ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com:~/
     env:
       SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
