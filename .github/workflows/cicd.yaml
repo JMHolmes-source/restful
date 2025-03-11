@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build y deploy:
+  build_and_deploy:
     runs-on: [ubuntu-latest]
     steps:
       - name: Checkout source
@@ -31,7 +31,7 @@ jobs:
           scp -o StrictHostKeyChecking=no -i "~/.ssh/id_rsa" restful-0.0.1-SNAPSHOT.jar ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com:~/
     env:
       SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-  run instance:
+  run_instance:
     runs-on: [ubuntu-latest]
       steps:
       - name: Setup Key
