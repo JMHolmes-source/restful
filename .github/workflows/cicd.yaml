@@ -1,0 +1,16 @@
+name: CICD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Run a command
+        run: |
+        ehco "Hello World!"
