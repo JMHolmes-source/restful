@@ -19,6 +19,11 @@ public class RestfulApplication {
 		return "Welcome to the test page";
 	}
 
+	@RequestMapping("/users")
+	String users() {
+		return "Here we can send back some users";
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulApplication.class, args);
 	}
