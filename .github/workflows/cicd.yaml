@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-      - name: Checkout code
-        uses: actions/checkout@v4
       - name: Set up JDK 23
         uses: actions/setup-java@v4
         with:
@@ -34,6 +32,7 @@ jobs:
 
   run_instance:
     runs-on: [ubuntu-latest]
+    needs: build_and_deploy
     steps:
     - name: Setup Key
       run: |
@@ -42,8 +41,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
     - name: kill and run
       run: |
-        ssh -o StrictHostKeyChecking=no -i "~/.ssh/id_rsa" ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com
-        pkill -f "java"
-        java -jar restful-0.0.1-SNAPSHOT.jar
+        ssh -o StrictHostKeyChecking=no -i "~/.ssh/id_rsa" ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com "pkill -f \"java\""
+        ssh -o StrictHostKeyChecking=no -i "~/.ssh/id_rsa" ec2-user@ec2-13-246-228-91.af-south-1.compute.amazonaws.com "java -jar restful-0.0.1-SNAPSHOT.jar"
     env:
       SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
