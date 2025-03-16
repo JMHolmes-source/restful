@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class User {
+class User {
     String username;
     String useremail;
     public User(String username, String useremail) {
