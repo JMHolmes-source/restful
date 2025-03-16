@@ -1,14 +1,18 @@
 package com.whatsapi.restful.models;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Data;
 
+@Data
 public class Message {
-    private int userID;
-    private int recipient;
+    private String username;
     private String message;
+    private String date;
+    private String time;
 
-    public Message(int uid, int rec) {
-        this.userID = uid;
-        this.recipient = rec;
+    public Message (String username, String message, String date, String time) {
+        this.username = username;
+        this.message = message;
+        this.date = date;
+        this.time = time;
     }
 }
