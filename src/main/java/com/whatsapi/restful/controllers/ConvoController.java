@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 
 @RestController
 @RequestMapping(path = "/conversation", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ConvoController {
+class ConvoController {
 
     @GetMapping("/{id}")
     Chat conversation() {

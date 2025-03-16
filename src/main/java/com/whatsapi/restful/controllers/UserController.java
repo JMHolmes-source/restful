@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserController {
+class UserController {
 	@GetMapping("/list")
 	List<User> users() {
 		List<User> users = new ArrayList<>();
