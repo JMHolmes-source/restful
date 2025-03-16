@@ -3,7 +3,10 @@ package com.whatsapi.restful.models;
 import lombok.Data;
 import java.util.*;
 
+import javax.persistence.Entity;
+
 @Data
+@Entity
 public class Chat {
     private List<Message> messages;
 

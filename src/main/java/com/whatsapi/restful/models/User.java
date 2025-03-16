@@ -1,8 +1,11 @@
 package com.whatsapi.restful.models;
 
+import javax.persistence.Entity;
+
 import lombok.Data;
 
 @Data
+@Entity
 public class User {
     String username;
     String useremail;
