@@ -6,14 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.whatsapi.restful.models.Chat;
 import com.whatsapi.restful.models.Message;
-import com.whatsapi.restful.models.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/conversation")
-public class conversationController {
+public class ConversationController {
     @GetMapping("/{id}")
     Chat conversation() {
         Chat temp = new Chat();
