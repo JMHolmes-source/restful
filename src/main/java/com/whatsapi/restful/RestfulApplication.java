@@ -8,17 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
+@RequestMapping("/api")
 public class RestfulApplication {
 	@RequestMapping("/")
 	String home() {
 		return "Welcome to the bus stop";
 	}
-
-	@RequestMapping("/test")
-	String test() {
-		return "Welcome to the test page";
-	}
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulApplication.class, args);
