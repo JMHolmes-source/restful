@@ -11,4 +11,6 @@ public class UserController {
 	String users() {
 		return "Invalid API call with no user information/actions specified";
 	}
+
+    @GetMapping('/{id}')
 }
