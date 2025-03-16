@@ -11,6 +11,6 @@ public class User {
     String useremail;
     public User(String username, String useremail) {
         this.username = username;
-        this.useremail = useremail;
+        this.useremail = useremail; 
     }
 }
