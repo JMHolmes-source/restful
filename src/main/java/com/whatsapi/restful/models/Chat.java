@@ -1,7 +1,7 @@
 package com.whatsapi.restful.models;
 
 import lombok.Data;
-import java.util.*;;
+import java.util.*;
 
 @Data
 public class Chat {
