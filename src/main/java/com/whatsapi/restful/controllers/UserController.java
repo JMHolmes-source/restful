@@ -14,7 +14,12 @@ public class UserController {
 	}
 
     @GetMapping("/message")
-	Message test() {
-		return new Message(10, 20);
+	String test() {
+		return """
+				{
+					"test": "test",
+					"id":10
+				}
+				""";
 	}
 }
