@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.whatsapi.restful.models.Chat;
 import com.whatsapi.restful.models.Message;
+import org.springframework.http.MediaType;
 
 @RestController
-@RequestMapping("/conversation")
+@RequestMapping(path = "/conversation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConvoController {
 
     @GetMapping("/{id}")
@@ -20,7 +21,6 @@ public class ConvoController {
         temp.addMessage(new Message("greggyweggy", "Sounds like a plan. Don’t overwork yourself!", "2023-10-01", "10:05:00"));
         temp.addMessage(new Message("yaosile", "Haha, I’ll try. Enjoy your walk!", "2023-10-01", "10:06:00"));
         temp.addMessage(new Message("greggyweggy", "Thanks! Talk later!", "2023-10-01", "10:07:00"));
-
         return temp;
     }
 }
