@@ -9,7 +9,7 @@ import com.whatsapi.restful.models.Message;
 
 @RestController
 @RequestMapping("/conversation")
-public class ConversationController {
+public class ConvoController {
 
     @GetMapping("/{id}")
     Chat conversation() {
