@@ -13,7 +13,7 @@ public class UserController {
 		return "Invalid API call with no user information/actions specified";
 	}
 
-    @GetMapping("/user")
+    @GetMapping("/message")
 	Message test() {
 		return new Message(10, 20);
 	}
