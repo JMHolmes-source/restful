@@ -10,9 +10,10 @@ import com.whatsapi.restful.models.Message;
 import org.springframework.http.MediaType;
 
 @RestController
+@RequestMapping("/conversation")
 public class ConvoController {
 
-    @GetMapping("/conversation/{id}")
+    @GetMapping("/{id}")
     Chat conversation() {
         Chat temp = new Chat();
         temp.addMessage(new Message("yaosile", "I'm doing well, thanks! What are you up to today?", "2023-10-01", "10:02:00"));
