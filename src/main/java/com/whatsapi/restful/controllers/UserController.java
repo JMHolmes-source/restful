@@ -3,12 +3,9 @@ package com.whatsapi.restful.controllers;
 import com.whatsapi.restful.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.whatsapi.restful.models.User;
-
-import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,6 @@ public class UserController {
 
 	@GetMapping("/list")
 	List<User> users() {
-		List<User> users = new ArrayList<>();
-		return users;
+		return userRepository.findAll();
 	}
 }
