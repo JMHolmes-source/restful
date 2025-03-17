@@ -1,6 +1,7 @@
 package com.whatsapi.restful.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.whatsapi.restful.models.User;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
-	@GetMapping("/list")
+	@PostMapping("/list")
 	List<User> users() {
 		List<User> users = new ArrayList<>();
 		users.add(new User("yaosile", "joshua.holmes@bbd.co.za"));

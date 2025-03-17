@@ -1,6 +1,7 @@
 package com.whatsapi.restful.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +13,7 @@ import org.springframework.http.MediaType;
 @RequestMapping(path = "/conversation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConvoController {
 
-    @GetMapping("/{id}")
+    @PostMapping("/{id}")
     Chat conversation() {
         Chat temp = new Chat();
         temp.addMessage(new Message("yaosile", "I'm doing well, thanks! What are you up to today?", "2023-10-01", "10:02:00"));
