@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import lombok.Data;
 
 @Data
-@Entity
 public class Message {
     private String username;
     private String message;
