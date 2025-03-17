@@ -17,7 +17,7 @@ jobs:
           distribution: 'temurin'
       - name: Build jar
         run: |
-          mvn clean install -DskipTests 
+          mvn -B clean install -DskipTests
       - name: Setup Key
         run: |
           mkdir -p ~/.ssh
