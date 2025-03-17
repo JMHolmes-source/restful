@@ -34,3 +34,4 @@ build/
 emailAccount
 local.env
 mvnw*
+.gitattributes
