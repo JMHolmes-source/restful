@@ -6,7 +6,7 @@ import lombok.Data;
 import org.springframework.http.HttpEntity;
 
 @Data
-public class Message<T> extends HttpEntity<T> {
+public class Message{
     private String username;
     private String message;
     private String date;

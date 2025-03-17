@@ -12,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/user")
 public class UserController {
-	@GetMapping("/list")
+	@GetMapping("/user/list")
 	List<User> users() {
 		List<User> users = new ArrayList<>();
 		users.add(new User("yaosile", "joshua.holmes@bbd.co.za"));

@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 
 
 @Data
-public class Chat<T> extends HttpEntity<T> {
+public class Chat {
     private List<Message> messages;
 
     public Chat(List<Message> messages) {
