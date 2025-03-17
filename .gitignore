@@ -35,3 +35,4 @@ emailAccount
 local.env
 mvnw*
 .gitattributes
+.mvn/
