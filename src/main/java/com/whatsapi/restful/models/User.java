@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import lombok.Data;
-import org.springframework.http.HttpEntity;
 
 @Data
 @Entity
@@ -18,5 +17,13 @@ public class User{
     public User(String username, String useremail) {
         this.username = username;
         this.useremail = useremail; 
+    }
+
+    public String getUseremail() {
+        return useremail;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
