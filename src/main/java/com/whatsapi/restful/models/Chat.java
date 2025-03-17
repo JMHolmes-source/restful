@@ -1,12 +1,14 @@
 package com.whatsapi.restful.models;
 
 import lombok.Data;
+import org.springframework.http.HttpEntity;
+
 import java.util.*;
 
 import javax.persistence.Entity;
 
-@Data
-public class Chat {
+
+public class Chat<T> extends HttpEntity<T> {
     private List<Message> messages;
 
     public Chat(List<Message> messages) {
