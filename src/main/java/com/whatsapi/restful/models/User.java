@@ -14,4 +14,12 @@ public class User{
         this.username = username;
         this.useremail = useremail; 
     }
+
+    public String getUseremail() {
+        return useremail;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }
