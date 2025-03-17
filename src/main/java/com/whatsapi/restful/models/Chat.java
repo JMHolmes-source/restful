@@ -8,6 +8,7 @@ import java.util.*;
 import javax.persistence.Entity;
 
 
+@Data
 public class Chat<T> extends HttpEntity<T> {
     private List<Message> messages;
 

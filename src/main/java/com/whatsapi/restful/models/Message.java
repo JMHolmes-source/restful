@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import lombok.Data;
 import org.springframework.http.HttpEntity;
 
+@Data
 public class Message<T> extends HttpEntity<T> {
     private String username;
     private String message;
