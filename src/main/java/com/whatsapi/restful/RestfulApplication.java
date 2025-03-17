@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 public class RestfulApplication {
-//	@RequestMapping("/")
-//	String home() {
-//		return "Welcome to the bus stop";
-//	}
 
 	@RequestMapping("/test")
 	String test() {

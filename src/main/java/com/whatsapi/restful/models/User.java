@@ -1,17 +1,20 @@
 package com.whatsapi.restful.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.Data;
 
 @Data
+@Entity
 public class User{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int user_id;
+
+    String email;
     String username;
-    String useremail;
-    public User(String username, String useremail) {
-        this.username = username;
-        this.useremail = useremail;
-    }
+    String first_name;
+    String last_name;
+
+    public User() {}
 }
