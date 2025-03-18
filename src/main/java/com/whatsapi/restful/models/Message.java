@@ -1,9 +1,6 @@
 package com.whatsapi.restful.models;
 
-import javax.persistence.Entity;
-
 import lombok.Data;
-import org.springframework.http.HttpEntity;
 
 @Data
 public class Message{
