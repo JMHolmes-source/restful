@@ -14,6 +14,4 @@ public class User{
 
     String email;
     String username;
-    String first_name;
-    String last_name;
 }
