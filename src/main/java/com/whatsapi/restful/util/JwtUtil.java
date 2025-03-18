@@ -1,28 +1,32 @@
 package com.whatsapi.restful.util;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.sql.Date;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.crypto.SecretKey;
 
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
 
-    // private SecretKey SECRET_KEY = Jwts.SIG.HS512.key().build();
+    private SecretKey jwtSecretKey = getSigningKey();
 
-    // public JwtUtil() {
-    //     SecretKey tempKey;
-    //     try {
-    //         tempKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    //     } catch (Exception e) {
-    //         throw new IllegalStateException("Failed to create JWT Secret Key", e);
-    //     }
-    //     this.SECRET_KEY = tempKey;
-    // }
+    SecretKey getSigningKey() {
+        return Jwts.SIG.HS512.key().build();
+    }
 
     // public Key getSecretKey() {
-    //     return SECRET_KEY;
+    // return SECRET_KEY;
     // }
 
     // public String extractUsername(String token) throws ExpiredJwtException {
@@ -58,21 +62,22 @@ public class JwtUtil {
     // return extractExpiration(token).before(new Date());
     // }
 
-    // public String generateToken(String username) {
-    // Map<String, Object> claims = new HashMap<>();
-    // return createToken(claims, username);
-    // }
+    public String generateToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, username);
+    }
 
-    // private String createToken(Map<String, Object> claims, String subject) {
-    // return Jwts.builder()
-    // .setClaims(claims)
-    // .setSubject(subject)
-    // .setIssuedAt(new Date(System.currentTimeMillis()))
-    // .setExpiration(new Date(System.currentTimeMillis() + 30 * 1000)) // 30
-    // seconds
-    // .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
-    // .compact();
-    // }
+    @SuppressWarnings("deprecation")
+    private String createToken(Map<String, Object> claims, String subject) {
+        System.out.println(Base64.getEncoder().encodeToString(jwtSecretKey.getEncoded()));
+        return Jwts.builder()
+        .setClaims(claims)
+        .setSubject(subject)
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + 300 * 1000)) // 30 seconds
+        .signWith(jwtSecretKey, SignatureAlgorithm.HS512)
+        .compact();
+    }
 
     // public Boolean validateToken(String token, String username) throws
     // ExpiredJwtException {
