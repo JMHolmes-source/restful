@@ -15,6 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "INSERT INTO public.users (user_id, email, username, first_name, last_name) VALUES(nextval('users_user_id_seq'::regclass), :email, :username, '', '');")
+    @Query(nativeQuery = true, value = "INSERT INTO public.users (user_id, email, username) VALUES(nextval('users_user_id_seq'::regclass), :email, :username);")
     void createUserQuery(@Param("email") String email, @Param("username") String username);
 }
