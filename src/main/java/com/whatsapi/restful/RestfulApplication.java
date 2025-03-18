@@ -1,10 +1,13 @@
 package com.whatsapi.restful;
 
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.jsonwebtoken.Jwts;
 
 @RestController
 @SpringBootApplication

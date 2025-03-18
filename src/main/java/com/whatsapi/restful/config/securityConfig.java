@@ -21,6 +21,8 @@ public class securityConfig {
                 })
                 .oauth2Login(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
+                .csrf()
+                .disable()
                 .build();
     }
 }
