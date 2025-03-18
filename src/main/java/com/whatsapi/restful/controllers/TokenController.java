@@ -14,10 +14,10 @@ public class TokenController {
 @Autowired
     private JwtUtil jwtUtil;
 
-    @GetMapping("/token")
+    @GetMapping("/")
     public String index(OAuth2AuthenticationToken authentication, Model model) {
         System.out.println(authentication.getPrincipal().getAttributes().get("email"));
         String token = jwtUtil.generateToken((String)authentication.getPrincipal().getAttributes().get("email"));
-        return "<button onclick=\"window.location.href='http://localhost:6969/callback?code="+token+"'\">Go to Callback</button>";
+        return "<button onclick=\"window.location.href='http://localhost:6969/callback?code="+token+"'\">Go to Callback</button>"; 
     }
 }

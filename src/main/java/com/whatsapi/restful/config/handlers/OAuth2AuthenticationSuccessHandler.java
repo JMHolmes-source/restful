@@ -26,7 +26,6 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
 
             System.out.println(""+oAuth2AuthenticationToken.getPrincipal().getAttribute("email"));
-            response.sendRedirect("/token");
         } else {
             super.onAuthenticationSuccess(request, response, chain, authentication);
         }
