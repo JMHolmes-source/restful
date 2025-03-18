@@ -11,7 +11,7 @@ public class TokenController {
     @GetMapping("/token")
     public String index(OAuth2AuthenticationToken authentication, Model model) {
         System.out.println(authentication.getPrincipal().getAttributes().get("email"));
-        model.addAttribute("message", "test");
-        return "index.html";
+        model.addAttribute("message","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xtZXNqb3NodWEwMUBnbWFpbC5jb20iLCJpYXQiOjE3NDIyNDkyMjYsImV4cCI6MTc0MjI0OTI1Nn0.AMijX3MPe6VAHhycibt8kPxlNjJiUxJygdn8F1EjM84");
+        return "index";
     }
 }
