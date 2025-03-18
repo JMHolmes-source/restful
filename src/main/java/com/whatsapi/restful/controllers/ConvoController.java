@@ -1,13 +1,11 @@
 package com.whatsapi.restful.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.whatsapi.restful.models.Chat;
 import com.whatsapi.restful.models.Message;
-import org.springframework.http.MediaType;
 
 @RestController
 @RequestMapping("/conversation")
