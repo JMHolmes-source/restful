@@ -38,4 +38,11 @@ public class ConversationService {
         userConversationRepository.createUserConversation(userRepository.getUserId(email),
                 conversationRepository.createConversation(jsonObject.getString("name")));
     }
+
+    public void addUserToConversation(String body) {
+        JSONObject json = new JSONObject(body);
+        int userID = userRepository.getUserIdByUsername(json.getString("username"));
+        int conversation_id = conversationRepository.getConversationID(json.getString("conversationName"));
+        userConversationRepository.createUserConversation(userID,conversation_id);
+    }
 }

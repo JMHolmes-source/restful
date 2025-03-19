@@ -1,8 +1,4 @@
 package com.whatsapi.restful.controllers;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.whatsapi.restful.service.MessageService;
@@ -25,7 +21,6 @@ public class MessageController {
 
     @PostMapping("messages")
     public void sendMessage(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
-        messageService.sendMessage(body);
+        // messageService.sendMessage(body);
     }
-
 }

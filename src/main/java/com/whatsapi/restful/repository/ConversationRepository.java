@@ -14,4 +14,7 @@ public interface ConversationRepository extends JpaRepository<Conversation, Long
     // @Transactional
     @Query(nativeQuery = true, value = "INSERT INTO public.conversations (conversation_name ,created_at) VALUES(:conversationName, NOW()) returning conversation_id;")
     int createConversation(@Param("conversationName") String conversationName);
+
+    @Query(nativeQuery = true, value = "select conversations.conversation_id from conversations where conversations.conversation_name = :name limit 1")
+    int getConversationID(@Param("name") String conversationName);
 }
