@@ -13,11 +13,11 @@ public class UserConversationService {
     private final UserConversationRepository userConversationRepository;
 
     @Autowired
-    public UserConversationService(UserConversationService userConversationRepository) {
+    public UserConversationService(UserConversationRepository userConversationRepository) {
         this.userConversationRepository = userConversationRepository;
     }
 
-    public void createUserConversation(Integer user_id, Integer conversation_id) {
+    public void createUserConversation(int user_id, int conversation_id) {
         LocalDateTime createdAt = LocalDateTime.now();
         userConversationRepository.createUserConversation(user_id, conversation_id);
     }
