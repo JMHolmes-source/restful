@@ -13,7 +13,7 @@ public class UserConversationService {
     private final UserConversationRepository userConversationRepository;
 
     @Autowired
-    public UserConversationService(UserConversationService userConversationRepository) {
+    public UserConversationService(UserConversationRepository userConversationRepository) {
         this.userConversationRepository = userConversationRepository;
     }
 

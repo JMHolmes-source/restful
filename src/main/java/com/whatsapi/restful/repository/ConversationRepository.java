@@ -15,7 +15,7 @@ import java.time.*;
 public interface ConversationRepository extends JpaRepository<User, Long> {
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "INSERT INTO public.conversations (ConversationName,CreatedAt) VALUES(:conversationName,:createdAt);")
+    @Query(nativeQuery = true, value = "INSERT INTO public.conversations (conversation_name,created_at) VALUES(:conversationName,:createdAt);")
 
     void createConversation(
         @Param("conversationName") String conversationName, // This will be iterated in the service layer
