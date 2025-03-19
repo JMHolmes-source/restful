@@ -12,9 +12,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "INSERT INTO public.users (user_id, email, username) VALUES(nextval('users_user_id_seq'::regclass), :email, :username);")
     void createUserQuery(@Param("email") String email, @Param("username") String username);
+
+
+    @Query(nativeQuery = true, value = "SELECT user_id FROM public.users u WHERE u.email = :email")
+    int getUserId(@Param("email") String email);
+
+
+
 }
