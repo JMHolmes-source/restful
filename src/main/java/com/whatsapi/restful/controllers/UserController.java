@@ -5,6 +5,8 @@ import com.whatsapi.restful.util.JwtUtil;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.whatsapi.restful.models.User;
 
-import java.util.ArrayList;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,12 +42,18 @@ public class UserController {
 	}
 
 	@PostMapping("/create")
-	void createUser(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
+	ResponseEntity<String> createUser(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
 		JSONObject json = new JSONObject(body);
 		String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", ""));
 		// System.out.println(email);
 		// System.out.println(json.getString("username"));
-		userRepository.createUserQuery(email, json.getString("username"));
+		try {
+			userRepository.createUserQuery(email, json.getString("username"));
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping("/check")
