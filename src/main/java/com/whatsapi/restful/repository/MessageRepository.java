@@ -46,7 +46,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             @Param("convo_id") int convo_id,
             @Param("user_id") int user_id);
 
-    @Query(nativeQuery = true, value = "select * from messages where conversation_id = :id")
+    @Query(nativeQuery = true, value = "select * from messages m where conversation_id = :id order by m.sent_at asc")
     List<Message> getMessages(
             @Param("id") int conversation_id);
 

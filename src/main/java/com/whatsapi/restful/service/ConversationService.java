@@ -1,8 +1,9 @@
 package com.whatsapi.restful.service;
 
 import com.whatsapi.restful.models.Conversation;
-import com.whatsapi.restful.models.ConversationListDTO;
 import com.whatsapi.restful.models.Message;
+import com.whatsapi.restful.models.DTOs.ConversationListDTO;
+import com.whatsapi.restful.models.DTOs.MessageDTO;
 import com.whatsapi.restful.repository.ConversationRepository;
 import com.whatsapi.restful.repository.MessageRepository;
 import com.whatsapi.restful.repository.UserRepository;
@@ -65,10 +66,23 @@ public class ConversationService {
         return output;
     }
 
-    public List<Message> showConversation(String body, String authHeader) {
+    public List<MessageDTO> showConversation(String body, String authHeader) {
         JSONObject json = new JSONObject(body);
         int conversation_id = conversationRepository.getConversationID(json.getString("conversation"));
-        return messageRepository.getMessages(conversation_id);
+        List<Message> messages = messageRepository.getMessages(conversation_id);
+
+        List<MessageDTO> output = new ArrayList<>();
+
+        for(int i = 0; i < messages.size(); i++) {
+            MessageDTO temp = new MessageDTO();
+            temp.setDatetime(messages.get(i).getSent_at());
+            temp.setMessage(messages.get(i).getMessage_text());
+            temp.setUsername(userRepository.findUsernameFromId(messages.get(i).getSender_id()));
+
+            output.add(temp);
+        }
+
+        return output;
     }
 
     public void sendMessage(String body, String authHeader) {

@@ -1,4 +1,4 @@
-package com.whatsapi.restful.models;
+package com.whatsapi.restful.models.DTOs;
 
 import java.time.LocalDateTime;
 

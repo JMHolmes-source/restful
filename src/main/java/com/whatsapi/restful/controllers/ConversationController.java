@@ -1,8 +1,9 @@
 package com.whatsapi.restful.controllers;
 
 import com.whatsapi.restful.models.Conversation;
-import com.whatsapi.restful.models.ConversationListDTO;
 import com.whatsapi.restful.models.Message;
+import com.whatsapi.restful.models.DTOs.ConversationListDTO;
+import com.whatsapi.restful.models.DTOs.MessageDTO;
 import com.whatsapi.restful.service.ConversationService;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class ConversationController {
     }
 
     @PostMapping("/show")
-    public List<Message> readConversation(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
+    public List<MessageDTO> readConversation(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
         return conversationService.showConversation(body, authHeader);
     }
 
