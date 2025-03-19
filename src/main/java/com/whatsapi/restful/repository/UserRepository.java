@@ -4,6 +4,8 @@ import com.whatsapi.restful.models.User;
 
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query(nativeQuery = true, value = "INSERT INTO public.users (user_id, email, username) VALUES(nextval('users_user_id_seq'::regclass), :email, :username);")
     void createUserQuery(@Param("email") String email, @Param("username") String username);
+
+    @Query(nativeQuery = true, value = "select * from users where email = :email")
+    List<User> findUserExist(@Param("email")String email);
 }

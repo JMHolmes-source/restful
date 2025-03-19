@@ -42,7 +42,12 @@ public class UserController {
 		String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", ""));
 		// System.out.println(email);
 		// System.out.println(json.getString("username"));
-
 		userRepository.createUserQuery(email, json.getString("username"));
+	}
+
+	@PostMapping("/check")
+	List<User> checkUser(@RequestHeader("Authorization") String authHeader) {
+		String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", ""));
+		return userRepository.findUserExist(email);
 	}
 }
