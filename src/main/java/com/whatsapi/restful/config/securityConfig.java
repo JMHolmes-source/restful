@@ -25,7 +25,6 @@ public class securityConfig {
                     // auth.requestMatchers("/token").authenticated();
                 })
                 .oauth2Login(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
                 .csrf()
                 .disable()
                 .build();
