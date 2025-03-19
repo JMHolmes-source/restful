@@ -1,24 +1,16 @@
 package com.whatsapi.restful.util;
 
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.sql.Date;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javax.crypto.SecretKey;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecretKeyAlgorithm;
+
 
 @Component
 public class JwtUtil {

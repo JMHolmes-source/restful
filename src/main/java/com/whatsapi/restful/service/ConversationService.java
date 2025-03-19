@@ -1,25 +1,17 @@
 package com.whatsapi.restful.service;
 
-import com.whatsapi.restful.models.Conversation;
-import com.whatsapi.restful.models.Message;
-import com.whatsapi.restful.models.DTOs.ConversationListDTO;
-import com.whatsapi.restful.models.DTOs.MessageDTO;
-import com.whatsapi.restful.repository.ConversationRepository;
-import com.whatsapi.restful.repository.MessageRepository;
-import com.whatsapi.restful.repository.UserRepository;
+import com.whatsapi.restful.models.*;
+import com.whatsapi.restful.models.DTOs.*;
+import com.whatsapi.restful.repository.*;
 import com.whatsapi.restful.util.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-import java.time.LocalDateTime;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+
 
 @Service
 public class ConversationService {

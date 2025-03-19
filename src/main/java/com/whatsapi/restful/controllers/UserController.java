@@ -5,14 +5,8 @@ import com.whatsapi.restful.util.JwtUtil;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 import com.whatsapi.restful.models.User;
 
 import java.util.HashMap;
@@ -23,7 +17,7 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
 	@Autowired
     private JwtUtil jwtUtil;

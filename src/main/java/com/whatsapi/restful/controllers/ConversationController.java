@@ -1,15 +1,12 @@
 package com.whatsapi.restful.controllers;
 
-import com.whatsapi.restful.models.Conversation;
-import com.whatsapi.restful.models.Message;
+
 import com.whatsapi.restful.models.DTOs.ConversationListDTO;
 import com.whatsapi.restful.models.DTOs.MessageDTO;
 import com.whatsapi.restful.service.ConversationService;
 
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,24 +1,14 @@
 package com.whatsapi.restful.service;
 
-import com.whatsapi.restful.models.Conversation;
-import com.whatsapi.restful.models.Message;
-import com.whatsapi.restful.models.DTOs.ConversationListDTO;
-import com.whatsapi.restful.models.DTOs.MessageDTO;
-import com.whatsapi.restful.repository.ConversationRepository;
-import com.whatsapi.restful.repository.MessageRepository;
-import com.whatsapi.restful.repository.UserRepository;
+import com.whatsapi.restful.models.*;
+import com.whatsapi.restful.models.DTOs.*;
+import com.whatsapi.restful.repository.*;
 import com.whatsapi.restful.util.JwtUtil;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
