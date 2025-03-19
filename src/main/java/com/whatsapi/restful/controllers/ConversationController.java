@@ -18,7 +18,7 @@ public class ConversationController {
     }
 
     @PostMapping
-    public void createConversation(@RequestParam String conversationName) {
-         conversationService.createConversation(conversationName);
+    public void createConversation(@RequestBody String body) {
+        conversationService.createConversation(body);
     }
 }
