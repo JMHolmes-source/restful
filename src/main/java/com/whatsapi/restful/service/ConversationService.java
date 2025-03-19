@@ -47,7 +47,7 @@ public class ConversationService {
         conversationRepository.createConversation(jsonObject.getString("name"));
     }
 
-    public List<ConversationListDTO> listConversation(String body, String authHeader) {
+    public List<ConversationListDTO> listConversation(String authHeader) {
         List<Conversation> convos = conversationRepository.getConversations();
         List<ConversationListDTO> output = new ArrayList<>();
         for (int i = 0; i < convos.size(); i++) {
