@@ -21,4 +21,9 @@ public class ConversationController {
     public void createConversation(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
         conversationService.createConversation(body, authHeader);
     }
+
+    @PostMapping("/add-user")
+    public void adddUserToConversation(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
+        conversationService.addUserToConversation(body);
+    }
 }
