@@ -1,7 +1,8 @@
 package com.whatsapi.restful.service;
 
+import com.whatsapi.restful.models.Message;
 import com.whatsapi.restful.repository.ConversationRepository;
-import com.whatsapi.restful.repository.UserConversationRepository;
+import com.whatsapi.restful.repository.MessageRepository;
 import com.whatsapi.restful.repository.UserRepository;
 import com.whatsapi.restful.util.JwtUtil;
 
@@ -20,29 +21,49 @@ public class ConversationService {
     private JwtUtil jwtUtil;
 
     private final ConversationRepository conversationRepository;
-    private final UserConversationRepository userConversationRepository;
+    private final MessageRepository messageRepository;
     private final UserRepository userRepository;
+    // private final UserConversationRepository userConversationRepository;
 
     @Autowired
     public ConversationService(ConversationRepository conversationRepository,
-            UserConversationRepository userConversationRepository,
-            UserRepository userRepository) {
+            // UserConversationRepository userConversationRepository,
+            UserRepository userRepository,
+            MessageRepository messageRepository) {
         this.conversationRepository = conversationRepository;
-        this.userConversationRepository = userConversationRepository;
+        // this.userConversationRepository = userConversationRepository;
         this.userRepository = userRepository;
+        this.messageRepository = messageRepository;
     }
 
     public void createConversation(String body, String authHeader) {
-        String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", ""));
         JSONObject jsonObject = new JSONObject(body);
-        userConversationRepository.createUserConversation(userRepository.getUserId(email),
-                conversationRepository.createConversation(jsonObject.getString("name")));
+        conversationRepository.createConversation(jsonObject.getString("name"));
     }
 
-    public void addUserToConversation(String body) {
+    public List<Message> showConversation(String body, String authHeader) {
         JSONObject json = new JSONObject(body);
-        int userID = userRepository.getUserIdByUsername(json.getString("username"));
-        int conversation_id = conversationRepository.getConversationID(json.getString("conversationName"));
-        userConversationRepository.createUserConversation(userID,conversation_id);
+        int conversation_id = conversationRepository.getConversationID(json.getString("conversation"));
+        return messageRepository.getMessages(conversation_id);
     }
+
+    public void sendMessage(String body, String authHeader) {
+        JSONObject json = new JSONObject(body);
+
+        String email = jwtUtil.extractEmail(authHeader);
+        int user_id = userRepository.getUserId(email);
+        int convo_id = conversationRepository.getConversationID(json.getString("conversation"));
+
+        messageRepository.sendMessage(json.getString("text"), convo_id, user_id);
+    }
+
+
+
+    // public void addUserToConversation(String body) {
+    // JSONObject json = new JSONObject(body);
+    // int userID = userRepository.getUserIdByUsername(json.getString("username"));
+    // int conversation_id =
+    // conversationRepository.getConversationID(json.getString("conversationName"));
+    // userConversationRepository.createUserConversation(userID,conversation_id);
+    // }
 }

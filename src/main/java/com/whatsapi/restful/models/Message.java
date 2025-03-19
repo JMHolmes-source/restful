@@ -1,20 +1,20 @@
 package com.whatsapi.restful.models;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 
+@Entity
 @Data
-public class Message{
-    private String username;
-    private String message;
-    private String date;
-    private String time;
-    private boolean read;
-
-    public Message (String username, String message, String date, String time, boolean read) {
-        this.username = username;
-        this.message = message;
-        this.date = date;
-        this.time = time;
-        this.read = read;
-    }
+@Table(name = "messages", schema = "public")
+public class Message {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int message_id;
+    private int sender_id;
+    private String message_text;
+    private LocalDateTime sent_at;
+    private boolean read_bool;
+    private int conversation_id;
 }
