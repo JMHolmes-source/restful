@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.whatsapi.restful.models.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -47,8 +49,11 @@ public class UserController {
 	}
 
 	@GetMapping("/check")
-	String checkUser(@RequestHeader("Authorization") String authHeader) {
+	Map<String, String> checkUser(@RequestHeader("Authorization") String authHeader) {
 		String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", ""));
-		return userRepository.findUserExist(email);
+		// return new JSONObject().put("username", userRepository.findUserExist(email));
+		HashMap<String, String> map = new HashMap<>();
+		map.put("username", userRepository.findUserExist(email));
+		return map;
 	}
 }
