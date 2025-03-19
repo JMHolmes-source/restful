@@ -45,14 +45,11 @@ public class UserController {
 	ResponseEntity<String> createUser(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
 		JSONObject json = new JSONObject(body);
 		String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", ""));
-		// System.out.println(email);
-		// System.out.println(json.getString("username"));
 		try {
 			userRepository.createUserQuery(email, json.getString("username"));
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
