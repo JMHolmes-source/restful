@@ -1,7 +1,11 @@
 package com.whatsapi.restful.service;
 
+import com.whatsapi.restful.models.Conversation;
+import com.whatsapi.restful.models.Message;
+import com.whatsapi.restful.models.DTOs.ConversationListDTO;
+import com.whatsapi.restful.models.DTOs.MessageDTO;
 import com.whatsapi.restful.repository.ConversationRepository;
-import com.whatsapi.restful.repository.UserConversationRepository;
+import com.whatsapi.restful.repository.MessageRepository;
 import com.whatsapi.restful.repository.UserRepository;
 import com.whatsapi.restful.util.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +15,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class ConversationServiceTest {
@@ -20,19 +27,17 @@ class ConversationServiceTest {
     @Mock
     private JwtUtil jwtUtil;
 
-
-    @InjectMocks
-    private ConversationService conversationService;
-
     @Mock
     private ConversationRepository conversationRepository;
 
     @Mock
-    private UserConversationRepository userConversationRepository;
+    private MessageRepository messageRepository;
 
     @Mock
     private UserRepository userRepository;
 
+    @InjectMocks
+    private ConversationService conversationService;
 
     @BeforeEach
     void setUp() {
@@ -56,34 +61,96 @@ class ConversationServiceTest {
     void testCreateConversation() {
         // Arrange
         String authHeader = "Bearer validToken";
-        String email = "test@example.com";
         String body = "{ \"name\": \"Test Conversation\" }";
-        int userId = 1;
-        int conversationId = 2;
-
-        // Mock JwtUtil to return the email
-        when(jwtUtil.extractEmail("validToken")).thenReturn(email);
-
-        // Mock UserRepository to return the user ID
-        when(userRepository.getUserId(email)).thenReturn(userId);
-
-        // Mock ConversationRepository to return the conversation ID
-        when(conversationRepository.createConversation("Test Conversation")).thenReturn(conversationId);
 
         // Act
         conversationService.createConversation(body, authHeader);
 
         // Assert
-        // Verify JwtUtil.extractEmail is called with the correct token
-        verify(jwtUtil, times(1)).extractEmail("validToken");
-
-        // Verify UserRepository.getUserId is called with the correct email
-        verify(userRepository, times(1)).getUserId(email);
-
-        // Verify ConversationRepository.createConversation is called with the correct name
         verify(conversationRepository, times(1)).createConversation("Test Conversation");
+    }
 
-        // Verify UserConversationRepository.createUserConversation is called with the correct user ID and conversation ID
-        verify(userConversationRepository, times(1)).createUserConversation(userId, conversationId);
+    @Test
+    void testListConversation() {
+        // Arrange
+        String authHeader = "Bearer validToken";
+        List<Conversation> conversations = new ArrayList<>();
+        Conversation conversation = new Conversation();
+        conversation.setConversation_id(1);
+        conversation.setConversation_name("Test Conversation");
+        conversations.add(conversation);
+
+        Message message = new Message();
+        message.setMessage_text("Hello");
+        message.setSender_id(1);
+        message.setSent_at(LocalDateTime.now());
+
+        when(conversationRepository.getConversations()).thenReturn(conversations);
+        when(messageRepository.getLastMessage(1)).thenReturn(message);
+        when(userRepository.findUsernameFromId(1)).thenReturn("testuser");
+
+        // Act
+        List<ConversationListDTO> result = conversationService.listConversation(authHeader);
+
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals("Test Conversation", result.get(0).getConversationName());
+        assertEquals("Hello", result.get(0).getLastMessage());
+        assertEquals("testuser", result.get(0).getLastSenderUsername());
+        verify(conversationRepository, times(1)).getConversations();
+        verify(messageRepository, times(1)).getLastMessage(1);
+        verify(userRepository, times(1)).findUsernameFromId(1);
+    }
+
+    @Test
+    void testShowConversation() {
+        // Arrange
+        String authHeader = "Bearer validToken";
+        String body = "{ \"conversation\": \"Test Conversation\" }";
+
+        List<Message> messages = new ArrayList<>();
+        Message message = new Message();
+        message.setMessage_text("Hello");
+        message.setSender_id(1);
+        message.setSent_at(LocalDateTime.now());
+        messages.add(message);
+
+        when(conversationRepository.getConversationID("Test Conversation")).thenReturn(1);
+        when(messageRepository.getMessages(1)).thenReturn(messages);
+        when(userRepository.findUsernameFromId(1)).thenReturn("testuser");
+
+        // Act
+        List<MessageDTO> result = conversationService.showConversation(body, authHeader);
+
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals("Hello", result.get(0).getMessage());
+        assertEquals("testuser", result.get(0).getUsername());
+        verify(conversationRepository, times(1)).getConversationID("Test Conversation");
+        verify(messageRepository, times(1)).getMessages(1);
+        verify(userRepository, times(1)).findUsernameFromId(1);
+    }
+
+    @Test
+    void testSendMessage() {
+        // Arrange
+        String authHeader = "Bearer validToken";
+        String body = "{ \"conversation\": \"Test Conversation\", \"text\": \"Hello\" }";
+
+        when(jwtUtil.extractEmail("Bearer validToken")).thenReturn("test@example.com");
+
+        when(userRepository.getUserId("test@example.com")).thenReturn(1);
+
+        when(conversationRepository.getConversationID("Test Conversation")).thenReturn(1);
+
+        conversationService.sendMessage(body, authHeader);
+
+        verify(jwtUtil, times(1)).extractEmail("Bearer validToken");
+
+        verify(userRepository, times(1)).getUserId("test@example.com");
+
+        verify(conversationRepository, times(1)).getConversationID("Test Conversation");
+
+        verify(messageRepository, times(1)).sendMessage("Hello", 1, 1);
     }
 }
