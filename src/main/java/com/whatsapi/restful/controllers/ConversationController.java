@@ -29,8 +29,8 @@ public class ConversationController {
     }
 
     @GetMapping("/list")
-    public List<ConversationListDTO> listConversations(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
-        return conversationService.listConversation(body, authHeader);
+    public List<ConversationListDTO> listConversations(@RequestHeader("Authorization") String authHeader) {
+        return conversationService.listConversation(authHeader);
     }
 
     @PostMapping("/show")
