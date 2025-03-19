@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void createUserQuery(@Param("email") String email, @Param("username") String username);
 
 
-    @Query(nativeQuery = true, value = "SELECT user_id FROM public.users u WHERE u.email = :email")
+    @Query(nativeQuery = true, value = "SELECT user_id FROM public.users u WHERE u.email = :email limit 1")
     int getUserId(@Param("email") String email);
 
 

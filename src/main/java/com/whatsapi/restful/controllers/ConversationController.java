@@ -17,8 +17,8 @@ public class ConversationController {
         this.conversationService = conversationService;
     }
 
-    @PostMapping
-    public void createConversation(@RequestBody String body) {
-        conversationService.createConversation(body);
+    @PostMapping("/create")
+    public void createConversation(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
+        conversationService.createConversation(body, authHeader);
     }
 }
