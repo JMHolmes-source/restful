@@ -18,15 +18,13 @@ public class securityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/").authenticated();
-                    auth.anyRequest().permitAll();
-                    // auth.requestMatchers("/token").authenticated();
-                })
-                .oauth2Login(Customizer.withDefaults())
-                .csrf()
-                .disable()
-                .build();
+        http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers("/").authenticated();
+            auth.anyRequest().permitAll();
+            // auth.requestMatchers("/token").authenticated();
+        });
+        http.oauth2Login(Customizer.withDefaults());
+        http.csrf().disable();
+        return http.build();
     }
 }
