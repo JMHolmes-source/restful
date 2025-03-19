@@ -1,10 +1,14 @@
 package com.whatsapi.restful.controllers;
 
+import com.whatsapi.restful.models.Conversation;
+import com.whatsapi.restful.models.ConversationListDTO;
 import com.whatsapi.restful.models.Message;
 import com.whatsapi.restful.service.ConversationService;
 
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,11 @@ public class ConversationController {
     @PostMapping("/create")
     public void createConversation(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
         conversationService.createConversation(body, authHeader);
+    }
+
+    @PostMapping("/list")
+    public List<ConversationListDTO> listConversations(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
+        return conversationService.listConversation(body, authHeader);
     }
 
     @PostMapping("/show")

@@ -1,5 +1,7 @@
 package com.whatsapi.restful.service;
 
+import com.whatsapi.restful.models.Conversation;
+import com.whatsapi.restful.models.ConversationListDTO;
 import com.whatsapi.restful.models.Message;
 import com.whatsapi.restful.repository.ConversationRepository;
 import com.whatsapi.restful.repository.MessageRepository;
@@ -12,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.time.LocalDateTime;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class ConversationService {
@@ -41,6 +47,24 @@ public class ConversationService {
         conversationRepository.createConversation(jsonObject.getString("name"));
     }
 
+    public List<ConversationListDTO> listConversation(String body, String authHeader) {
+        List<Conversation> convos = conversationRepository.getConversations();
+        List<ConversationListDTO> output = new ArrayList<>();
+        for (int i = 0; i < convos.size(); i++) {
+            ConversationListDTO temp = new ConversationListDTO();
+
+            Message message = messageRepository.getLastMessage(convos.get(i).getConversation_id());
+            if(!Objects.isNull(message)) {
+                temp.setLastSenderUsername(userRepository.findUsernameFromId(message.getSender_id()));
+                temp.setLastMessage(message.getMessage_text());
+                temp.setDatetime(message.getSent_at());
+            }
+            temp.setConversationName(convos.get(i).getConversation_name());
+            output.add(temp);
+        }
+        return output;
+    }
+
     public List<Message> showConversation(String body, String authHeader) {
         JSONObject json = new JSONObject(body);
         int conversation_id = conversationRepository.getConversationID(json.getString("conversation"));
@@ -56,8 +80,6 @@ public class ConversationService {
 
         messageRepository.sendMessage(json.getString("text"), convo_id, user_id);
     }
-
-
 
     // public void addUserToConversation(String body) {
     // JSONObject json = new JSONObject(body);

@@ -12,7 +12,7 @@ import lombok.Data;
 public class Conversation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int coversation_id;
+    private int conversation_id;
     private String conversation_name;
     private LocalDateTime created_at;
 }

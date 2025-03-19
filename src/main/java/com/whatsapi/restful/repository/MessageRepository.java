@@ -24,6 +24,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             @Param("sentat") LocalDateTime sentat,
             @Param("read") boolean read);
 
+        @Query(nativeQuery = true, value = "select * from messages m where conversation_id = :convo_id order by m.sent_at desc limit 1")
+        Message getLastMessage(@Param("convo_id") int convo_id);
     // @Modifying
     // @Transactional
     // @Query(nativeQuery = true, value = "INSERT INTO public.messages (sender_id,
