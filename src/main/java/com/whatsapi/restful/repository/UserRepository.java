@@ -20,6 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "INSERT INTO public.users (user_id, email, username) VALUES(nextval('users_user_id_seq'::regclass), :email, :username);")
     void createUserQuery(@Param("email") String email, @Param("username") String username);
 
-    @Query(nativeQuery = true, value = "select * from users where email = :email")
-    List<User> findUserExist(@Param("email")String email);
+    @Query(nativeQuery = true, value = "select username from users where email = :email limit 1")
+    String findUserExist(@Param("email")String email);
 }

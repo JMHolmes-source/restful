@@ -5,6 +5,7 @@ import com.whatsapi.restful.util.JwtUtil;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,8 +46,8 @@ public class UserController {
 		userRepository.createUserQuery(email, json.getString("username"));
 	}
 
-	@PostMapping("/check")
-	List<User> checkUser(@RequestHeader("Authorization") String authHeader) {
+	@GetMapping("/check")
+	String checkUser(@RequestHeader("Authorization") String authHeader) {
 		String email = jwtUtil.extractEmail(authHeader.replace("Bearer ", ""));
 		return userRepository.findUserExist(email);
 	}
