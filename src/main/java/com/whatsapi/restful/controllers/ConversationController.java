@@ -28,7 +28,7 @@ public class ConversationController {
         conversationService.createConversation(body, authHeader);
     }
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     public List<ConversationListDTO> listConversations(@RequestBody String body, @RequestHeader("Authorization") String authHeader) {
         return conversationService.listConversation(body, authHeader);
     }
