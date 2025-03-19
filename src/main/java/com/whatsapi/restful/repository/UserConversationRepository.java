@@ -15,8 +15,7 @@ public interface UserConversationRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query(nativeQuery = true, value = "INSERT INTO public.userconversations (user_id, conversation_id) VALUES(:userID,:conversationID);")
     void createUserConversation(
-        @Param("userID") Integer userID, 
-        @Param("conversationID") Integer conversationID 
-    );
-    
+        @Param("userID") int userID, 
+        @Param("conversationID") int conversationID 
+    );   
 }
