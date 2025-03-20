@@ -2,12 +2,9 @@ package com.whatsapi.restful.util;
 
 import java.sql.Date;
 import java.util.*;
-
 import javax.crypto.SecretKey;
-
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 

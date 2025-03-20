@@ -32,7 +32,6 @@ class ConversationServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        // Manually set the jwtUtil on your conversationService
         Field jwtUtilField = null;
         try {
             jwtUtilField = ConversationService.class.getDeclaredField("jwtUtil");
@@ -49,20 +48,15 @@ class ConversationServiceTest {
 
     @Test
     void testCreateConversation() {
-        // Arrange
         String authHeader = "Bearer validToken";
         String body = "{ \"name\": \"Test Conversation\" }";
 
-        // Act
         conversationService.createConversation(body, authHeader);
-
-        // Assert
         verify(conversationRepository, times(1)).createConversation("Test Conversation");
     }
 
     @Test
     void testListConversation() {
-        // Arrange
         String authHeader = "Bearer validToken";
         List<Conversation> conversations = new ArrayList<>();
         Conversation conversation = new Conversation();
@@ -79,10 +73,8 @@ class ConversationServiceTest {
         when(messageRepository.getLastMessage(1)).thenReturn(message);
         when(userRepository.findUsernameFromId(1)).thenReturn("testuser");
 
-        // Act
         List<ConversationListDTO> result = conversationService.listConversation(authHeader);
 
-        // Assert
         assertEquals(1, result.size());
         assertEquals("Test Conversation", result.get(0).getConversationName());
         assertEquals("Hello", result.get(0).getLastMessage());
@@ -94,7 +86,6 @@ class ConversationServiceTest {
 
     @Test
     void testShowConversation() {
-        // Arrange
         String authHeader = "Bearer validToken";
         String body = "{ \"conversation\": \"Test Conversation\" }";
 
@@ -109,10 +100,8 @@ class ConversationServiceTest {
         when(messageRepository.getMessages(1)).thenReturn(messages);
         when(userRepository.findUsernameFromId(1)).thenReturn("testuser");
 
-        // Act
         List<MessageDTO> result = conversationService.showConversation(body, authHeader);
 
-        // Assert
         assertEquals(1, result.size());
         assertEquals("Hello", result.get(0).getMessage());
         assertEquals("testuser", result.get(0).getUsername());
@@ -123,7 +112,6 @@ class ConversationServiceTest {
 
     @Test
     void testSendMessage() {
-        // Arrange
         String authHeader = "Bearer validToken";
         String body = "{ \"conversation\": \"Test Conversation\", \"text\": \"Hello\" }";
 
